@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>radio2</title>
+
+    <style>
+        .rd {
+            display: none;
+            /* 将原生的radio隐藏 */
+        }
+        /* label 模拟 “底部框” */
+        
+        .rd+label {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #cecece;
+            box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1) inset, 0 1px 4px rgba(0, 0, 0, 0.1) inset, 1px -1px 2px rgba(0, 0, 0, 0.1);
+        }
+        /* “label::before伪元素 模拟 “选择小圆块” */
+        
+        .rd+label:before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 500;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: #f1f1f1;
+            -webkit-transition: all 0.15s ease-in;
+            transition: all 0.15s ease-in;
+        }
+        /* radio选中状态时，“底部框”的样式 */
+        
+        .rd:checked+label {
+            background: #059acb;
+        }
+        /* radio选中状态时，“选择小圆块”的样式 */
+        
+        .rd:checked+label:before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <input type="radio" name="rd" class="rd" id="rd1">
+    <label for="rd1"></label>
+    <span style="margin-right: 10px;"></span>
+    <input type="radio" name="rd" class="rd" id="rd2" checked>
+    <label for="rd2"></label>
+    <span style="margin-right: 10px;"></span>
+    <input type="radio" name="rd" class="rd" id="rd3">
+    <label for="rd3"></label>
+</body>
+
+</html>

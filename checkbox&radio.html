@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>checkbox&radio</title>
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <style>
+        .my-checkbox,
+        .my-radio {
+            display: none;
+        }
+        
+        .my-checkbox:checked+span,
+        .my-radio:checked+span {
+            border: 1px solid #333;
+        }
+        
+        .my-checkbox+span {
+            width: 14px;
+            height: 14px;
+            font-size: 14px;
+            display: inline-block;
+            border: 1px solid #333;
+            position: relative!important;
+            cursor: pointer;
+        }
+        
+        .my-radio+span {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            vertical-align: middle;
+            border-radius: 50%;
+            border: 1px solid #333;
+            position: relative!important;
+            cursor: pointer;
+        }
+        
+        .my-checkbox:checked+span:after {
+            width: 100%;
+            height: 100%;
+            line-height: 100%;
+            font-size: 100%;
+            text-align: center;
+            content: '\2714';
+            color: #fff;
+            background-color: #333;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        
+        .my-radio:checked+span::after {
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+            line-height: 8px;
+            content: ' ';
+            background: #000;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="checkbox" class="my-checkbox" />
+    <input type="checkbox" class="my-checkbox" />
+    <input type="checkbox" class="my-checkbox" />
+    <input type="checkbox" class="my-checkbox" />
+    <input type="checkbox" class="my-checkbox" />
+    <input type="checkbox" class="my-checkbox" />
+    <input type="checkbox" class="my-checkbox" />
+    <input type="checkbox" class="my-checkbox" />
+    <input type="checkbox" class="my-checkbox" />
+    <input type="checkbox" class="my-checkbox" />
+    <br/>
+    <input type="radio" class="my-radio" name="type" />
+    <input type="radio" class="my-radio" name="type" />
+    <input type="radio" class="my-radio" name="type" />
+    <input type="radio" class="my-radio" name="type" />
+    <input type="radio" class="my-radio" name="type" />
+    <input type="radio" class="my-radio" name="type" />
+    <input type="radio" class="my-radio" name="type" />
+    <input type="radio" class="my-radio" name="type" />
+    <input type="radio" class="my-radio" name="type" />
+    <input type="radio" class="my-radio" name="type" />
+</body>
+<script>
+    /**
+     * 委托点击事件
+     */
+    $(document).on('click', '.my-checkbox+span,.my-radio+span', function(e) {    
+        var input = $(this).prev('input');     //触发点击事件
+            
+        input.trigger('click');    
+        return false;
+    });
+    /**
+     * 自定义样式代替原生input样式，在input后增加span标签
+     */
+    function addSpanAfterInput(input) {     
+        input.after('<span></span>');
+
+           //给span设置样式（位置样式）和原input相同
+          
+        input.each(function(index, ele) {    
+            var styles = {};    
+            var input = $(ele);    
+            styles.float = input.css('float');    
+            styles.margin = input.css('margin');    
+            styles.position = input.css('position');    
+            if (input.css('position') == 'absolute') {      
+                styles.top = input.css('top');      
+                styles.bottom = input.css('bottom');      
+                styles.left = input.css('left');      
+                styles.right = input.css('right');    
+            }    
+            input.next('span').css(styles);    
+            styles = null;  
+        });
+    }
+    //页面加载完就给自定义input按钮添加span伪类和样式
+    var myCB = $('.my-checkbox,.my-radio');
+    addSpanAfterInput(myCB);
+</script>
+
+</html>
